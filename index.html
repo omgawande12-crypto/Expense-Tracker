@@ -1,0 +1,495 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Expense Tracker</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f5f9;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+
+header {
+    text-align: center;
+    color: #1e293b;
+}
+
+header p {
+    color: #64748b;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin: 25px 0;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #00000010;
+}
+
+.card h3 {
+    color: #64748b;
+    margin-top: 0;
+}
+
+.card h2 {
+    color: #2563eb;
+    margin-bottom: 0;
+}
+
+form {
+    display: grid;
+    gap: 12px;
+}
+
+input, select, button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 7px;
+    border: 1px solid #cbd5e1;
+    font-size: 15px;
+}
+
+button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+h2 {
+    color: #1e293b;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    margin-top: 15px;
+}
+
+th, td {
+    padding: 12px 8px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+th {
+    background: #eaf1ff;
+}
+
+.delete-btn {
+    background: #dc2626;
+    padding: 8px;
+}
+
+.summary {
+    margin-top: 25px;
+}
+
+.summary p {
+    background: white;
+    padding: 12px;
+    border-radius: 7px;
+}
+
+@media (max-width: 600px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    body {
+        padding: 10px;
+    }
+
+    table {
+        font-size: 12px;
+    }
+
+    th, td {
+        padding: 8px 4px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+    <h1>Expense Tracker</h1>
+    <p>Manage your daily expenses easily</p>
+</header>
+
+<div class="dashboard">
+
+    <div class="card">
+        <h3>Total Expenses</h3>
+        <h2 id="total">₹0</h2>
+    </div>
+
+    <div class="card">
+        <h3>Total Transactions</h3>
+        <h2 id="count">0</h2>
+    </div>
+
+</div>
+
+<div class="card">
+
+    <h2>Add New Expense</h2>
+
+    <form id="expenseForm">
+
+        <input
+            type="text"
+            id="description"
+            placeholder="Expense description"
+            required
+        >
+
+        <input
+            type="number"
+            id="amount"
+            placeholder="Amount in ₹"
+            min="0.01"
+            step="0.01"
+            required
+        >
+
+        
+<select id="category" required>
+
+    <option value="">Select Category</option>
+
+    <optgroup label="Daily Expenses">
+        <option>Food</option>
+        <option>Groceries</option>
+        <option>Breakfast</option>
+        <option>Lunch</option>
+        <option>Dinner</option>
+        <option>Canteen</option>
+        <option>Snacks</option>
+        <option>Tea and Coffee</option>
+        <option>Water</option>
+    </optgroup>
+
+    <optgroup label="Education">
+        <option>Education</option>
+        <option>College Fees</option>
+        <option>Books</option>
+        <option>Stationery</option>
+        <option>Exam Fees</option>
+        <option>Online Courses</option>
+        <option>Project Expenses</option>
+        <option>Printing and Xerox</option>
+    </optgroup>
+
+    <optgroup label="Transportation">
+        <option>Travel</option>
+        <option>Bus</option>
+        <option>Train</option>
+        <option>Auto Rickshaw</option>
+        <option>Taxi</option>
+        <option>Petrol</option>
+        <option>Bike Maintenance</option>
+        <option>Parking</option>
+    </optgroup>
+
+    <optgroup label="Personal Expenses">
+        <option>Shopping</option>
+        <option>Clothing</option>
+        <option>Footwear</option>
+        <option>Personal Care</option>
+        <option>Haircut</option>
+        <option>Skincare</option>
+        <option>Mobile Recharge</option>
+        <option>Internet</option>
+    </optgroup>
+
+    <optgroup label="Entertainment">
+        <option>Movies</option>
+        <option>Games</option>
+        <option>Subscriptions</option>
+        <option>Sports</option>
+        <option>Travel and Trips</option>
+        <option>Photography</option>
+    </optgroup>
+
+    <optgroup label="Home Expenses">
+        <option>Rent</option>
+        <option>Electricity</option>
+        <option>Water Bill</option>
+        <option>Gas</option>
+        <option>Furniture</option>
+        <option>Cleaning</option>
+        <option>Household Items</option>
+    </optgroup>
+
+    <optgroup label="Health">
+        <option>Medical</option>
+        <option>Medicines</option>
+        <option>Doctor Consultation</option>
+        <option>Health Checkup</option>
+        <option>Fitness</option>
+    </optgroup>
+
+    <optgroup label="Other">
+        <option>Gifts</option>
+        <option>Donations</option>
+        <option>Family Expenses</option>
+        <option>Emergency</option>
+        <option>Other</option>
+    </optgroup>
+
+</select>
+
+
+        <input
+            type="date"
+            id="date"
+            required
+        >
+
+        <button type="submit">Add Expense</button>
+
+    </form>
+
+</div>
+
+<div class="summary">
+
+    <h2>Expense History</h2>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody id="expenseList"></tbody>
+
+    </table>
+
+    <h2>Category Summary</h2>
+
+    <div id="categorySummary"></div>
+
+</div>
+
+</div>
+
+<script>
+
+// Load saved expenses
+let expenses = JSON.parse(
+    localStorage.getItem("studentExpenses") || "[]"
+);
+
+// Set today's date
+document.getElementById("date").value =
+    new Date().toLocaleDateString("en-CA");
+
+// Add expense
+document.getElementById("expenseForm")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const description =
+        document.getElementById("description").value.trim();
+
+    const amount =
+        Number(document.getElementById("amount").value);
+
+    const category =
+        document.getElementById("category").value;
+
+    const date =
+        document.getElementById("date").value;
+
+    if (
+        !description ||
+        !Number.isFinite(amount) ||
+        amount <= 0 ||
+        !category ||
+        !date
+    ) {
+        alert("Please enter valid expense details.");
+        return;
+    }
+
+    const expense = {
+        id: Date.now(),
+        description: description,
+        amount: amount,
+        category: category,
+        date: date
+    };
+
+    expenses.push(expense);
+
+    saveExpenses();
+
+    this.reset();
+
+    document.getElementById("date").value =
+        new Date().toLocaleDateString("en-CA");
+
+});
+
+// Save expenses
+function saveExpenses() {
+
+    localStorage.setItem(
+        "studentExpenses",
+        JSON.stringify(expenses)
+    );
+
+    displayExpenses();
+
+}
+
+// Display expenses
+function displayExpenses() {
+
+    const list =
+        document.getElementById("expenseList");
+
+    list.innerHTML = "";
+
+    let total = 0;
+
+    const categoryTotals = {};
+
+    expenses.forEach(function(expense) {
+
+        total += expense.amount;
+
+        categoryTotals[expense.category] =
+            (categoryTotals[expense.category] || 0)
+            + expense.amount;
+
+        const row = document.createElement("tr");
+
+        const values = [
+            expense.description,
+            expense.category,
+            "₹" + expense.amount.toFixed(2),
+            expense.date
+        ];
+
+        values.forEach(function(value) {
+
+            const cell = document.createElement("td");
+
+            cell.textContent = value;
+
+            row.appendChild(cell);
+
+        });
+
+        const actionCell = document.createElement("td");
+
+        const deleteButton =
+            document.createElement("button");
+
+        deleteButton.textContent = "Delete";
+
+        deleteButton.className = "delete-btn";
+
+        deleteButton.addEventListener("click", function() {
+            deleteExpense(expense.id);
+        });
+
+        actionCell.appendChild(deleteButton);
+
+        row.appendChild(actionCell);
+
+        list.appendChild(row);
+
+    });
+
+    document.getElementById("total").textContent =
+        "₹" + total.toFixed(2);
+
+    document.getElementById("count").textContent =
+        expenses.length;
+
+    displayCategorySummary(categoryTotals);
+
+}
+
+// Delete expense
+function deleteExpense(id) {
+
+    expenses = expenses.filter(function(expense) {
+        return expense.id !== id;
+    });
+
+    saveExpenses();
+
+}
+
+// Category summary
+function displayCategorySummary(categoryTotals) {
+
+    const summary =
+        document.getElementById("categorySummary");
+
+    summary.innerHTML = "";
+
+    Object.entries(categoryTotals).forEach(
+        function([category, amount]) {
+
+            const paragraph =
+                document.createElement("p");
+
+            paragraph.textContent =
+                category + ": ₹" + amount.toFixed(2);
+
+            summary.appendChild(paragraph);
+
+        }
+    );
+
+}
+
+// Initial display
+displayExpenses();
+
+</script>
+
+</body>
+</html>
